@@ -14,6 +14,9 @@
         <!-- title of site -->
         <title>Continual Domain Adaptation</title>
        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
         <!--font-awesome.min.css-->
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
@@ -65,6 +68,8 @@
 								<li class="smooth-menu"><a href="#introduction">introduction</a></li>
                                 <li class="smooth-menu"><a href="#problem">problem</a></li>
 			                    <li class="smooth-menu"><a href="#solution">solution</a></li>
+                                <li class="smooth-menu"><a href="#results">results</a></li>
+                                <li class="smooth-menu"><a href="#results">supplementary</a></li>
 			                </ul><!--/.nav -->
 			            </div><!-- /.navbar-collapse -->
 			        </div><!--/.container-->
@@ -145,15 +150,55 @@
 				<div class="about-content">
                     <div class="single-about-txt">
                         <h3>
-                            There are multiple CDA methods which have been proposed to handle catastrophic forgetting. Typically, most methods include a replay buffer.
-                            This replay buffer stores a small portion of previously seen target data which will be reintroduced during adaptation to prevent catastrophic forgetting.
-                            Here I will introduce my proposed method which can be implemented in 
+                            Several continual domain adaptation (CDA) methods have been developed to combat catastrophic forgetting. Most approach involves a replay buffer which holds a small selection of data from previous tasks, which is then replayed during the learning process to help the model retain its knowledge. I'd like to introduce a new method; continual batch normalization (CBN), that can be integrated with replay buffer. My method centers on changing how batch normalization is performed which reduces the replay buffer size required to mitigate catastrophic forgetting. However, before diving into the details, it's essential to understand the fundamentals of batch normalization.
+                            <br><br>
+                            Batch normalization is a technique used to improve the training stability and speed of deep neural networks by addressing internal covariate shift. This is done by transforming the inputs to these layers so that they have a mean close to zero and a standard deviation close to one. For a batch \(\beta\), batch normalization transform each input \(x_i\) as:
+
+                            \[\hat{x_i} = {x_i - \mu_\beta \over \sqrt{\sigma^2_\beta + \epsilon}}\]
+
+                            Here \(\mu_\beta\) denotes mean and \(\sigma^2_\beta\) denotes variance of the batch. While effective at increasing convergence speed and stability, much knowledge of the previous domain is lost by re-calculating mean and variance for the batch of each target domain. Unlike conventional batch normalization, continual batch normalization (CBN) normalize the inputs of target domain using the mean and variance of the source domain.
+                            
+                            \[\hat{x_i} = {x_i - \mu_{source} \over \sqrt{\sigma^2_{source} + \epsilon}}\]
                         </h3>
+
                     </div>
 				</div>
 			</div>
 		</section><!--/.solution-->
         <!--solution end -->
+
+        <!--results start -->
+		<section id="results" class="about">
+			<div class="container">
+                <div class="section-heading text-center">
+                    <h1><u>doing more with less</u></h1>
+                </div>
+				<div class="about-content">
+                    <div class="single-about-txt">
+                        <h3>
+                            We can visually compare model performance with and without continual batch normalization (CBN) from the plotting below. The graphs show that, for a given replay buffer size, the model using CBN retains more memory than the model without it, demonstrating CBN's effectiveness.
+                            <br><br>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/Replay_study.png">
+                            </div>
+                            <figcaption style="font-size: 0.8em; text-align: center;">Plot showing model's ability to retain knowledge (BWT) with varying replay size</figcaption>
+                        </h3>
+                    </div>
+				</div>
+			</div>
+		</section><!--/.results-->
+		<!--results end -->
+
+        <!--references start -->
+		<section id="supplementary" class="about">
+			<div class="container">
+                <strong>supplementary materials:</strong>
+                <p>Please refer to my publication [<a href="https://www.sciencedirect.com/science/article/abs/pii/S0888327025000184">article</a> / <a href="assets/download/CDA/EverAdapt.pdf" download="assets/download/CDA/EverAdapt.pdf">PDF download</a>] for additional details. 
+                   For any questions, I can be reached at <a href="mailto:EDWARD.mononym@proton.me">EDWARD.mononym@proton.me</a></p>
+                <br>
+			</div>
+		</section><!--/.references-->
+		<!--references end -->
 
 		<!-- Include all js compiled plugins (below), or include individual files as needed -->
 
