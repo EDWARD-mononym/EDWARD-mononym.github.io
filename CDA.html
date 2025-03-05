@@ -1,0 +1,196 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;subset=devanagari,latin-ext" rel="stylesheet">
+        
+        <!-- title of site -->
+        <title>Continual Domain Adaptation</title>
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+		<!--flat icon css-->
+		<link rel="stylesheet" href="assets/css/flaticon.css">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="assets/css/animate.css">
+
+        <!--owl.carousel.css-->
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="assets/css/bootsnav.css" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="assets/css/style.css">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="assets/css/responsive.css">
+        
+    </head>
+	
+	<body>
+
+        <!-- top-area Start -->
+		<header class="top-area">
+			<div class="header-area">
+				<!-- Start Navigation -->
+			    <nav class="navbar navbar-default bootsnav navbar-fixed dark no-background">
+			        <div class="container">
+			            <!-- Start Header Navigation -->
+			            <div class="navbar-header">
+			                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+			                    <i class="fa fa-bars"></i>
+			                </button>
+			                <a class="navbar-brand" href="index.html">Edward</a>
+			            </div><!--/.navbar-header-->
+			            <!-- End Header Navigation -->
+
+			            <!-- Collect the nav links, forms, and other content for toggling -->
+			            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+			                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+			                <li class=" smooth-menu active"></li>
+								<li class="smooth-menu"><a href="#introduction">introduction</a></li>
+                                <li class="smooth-menu"><a href="#problem">problem</a></li>
+			                    <li class="smooth-menu"><a href="#solution">solution</a></li>
+			                </ul><!--/.nav -->
+			            </div><!-- /.navbar-collapse -->
+			        </div><!--/.container-->
+			    </nav><!--/nav-->
+			    <!-- End Navigation -->
+			</div><!--/.header-area-->
+		    <div class="clearfix"></div>
+		</header><!-- /.top-area-->
+		<!-- top-area End -->
+
+        <!--introduction start -->
+		<section id="introduction" class="about">
+			<div class="container">
+                <div class="section-heading text-center">
+                    <h1><u>data drift can turns a perfect model into a useless tool</u></h1>
+                </div>
+				<div class="about-content">
+                    <div class="single-about-txt">
+                        <h3>
+                            When the real-world data differs from the training data, machine learning models fails, a challenge known as domain shift. This problem arises primarily from two factors: data changes over time, or limitations in obtaining realistic training data. For example, building a fall detection model for the elderly is hindered by the ethical and practical impossibility of collecting real-life fall data. forcing reliance on imperfect fall simulations. Similarly, a self-driving car model trained on summer conditions will struggle when winter's drastically different weather arrives. Addressing this domain shift requires techniques that enable models to adapt to new data distributions, commonly known as domain adaptation.
+                            <br><br>
+                            <strong>Reader Note:</strong>
+                            <p>Performance degradation due to domain shift occur due to multiple distinct reasons. Changes in the overall data distribution (marginal distribution), or changes in the relationship between inputs and outputs (conditional distribution). Although these are distinct causes, for simplicity, we will collectively refer to them as domain shift, and the solutions to these problems as domain adaptation.</p>
+                            <br>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/HU_Summer.jpg" style="max-width: 45%; margin: 50px;">
+                                <img src="assets/images/CDA/HU_Winter.jpg" style="max-width: 45%; margin: 50px;">
+                            </div>
+                            <figcaption style="font-size: 0.8em; text-align: center;">When a model faces a data with differing distribution from the training distribution, its performance degrades</figcaption>
+                            <br>
+                            The challenge of domain shift is addressed by a variety of domain adaptation methods. A fundamental assumption in many of these approaches is the presence of two distinct domains: a source domain with labeled training data, and a target domain, often representing real-world data, which is typically unlabeled. This lack of labels in the target domain is a common characteristic due to the practical difficulties of obtaining them (like the fall detection sensor example above). In addition to this standard setup, some domain adaptation methods specifically address scenarios where the target domain introduces new classes not present in the source. Furthermore, a category known as "source-free" domain adaptation allows for adaptation to the target domain using a pre-trained model, without requiring access to the original source data. Moving forward, we will be assuming this standard setup of a labeled source and unlabeled target for domain adaptation.
+                            </h3>
+                    </div>
+				</div>
+			</div>
+		</section><!--/.introduction-->
+		<!--introduction end -->
+
+        <!--Problem start -->
+		<section id="problem" class="about">
+			<div class="container">
+                <div class="section-heading text-center">
+                    <h1><u>Neural network has the memory a goldfish</u></h1>
+                </div>
+				<div class="about-content">
+                    <div class="single-about-txt">
+                        <h3>
+                            Domain adaptation techniques addresses the domain shift but most techniques assumes only one target domain which isn't always true in practice.
+                            In reality, there might be multiple different environments. For example, a self-driving car trained in summer might need to adapt to autumn or winter later. 
+                            While you could theoretically combine all these weather conditions into one big dataset, it's often impractical due to time constraints or the continuously changing nature of the data. 
+                            Ideally, we want a model that can learn from new data as it arrives, without forgetting what it already knows. This is the goal of continual domain adaptation (CDA): updating a model with new, unlabeled environments while preserving past knowledge.
+                            <br><br>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/CDA.png">
+                            </div>
+                            <br>
+                            <figcaption style="font-size: 0.8em; text-align: center;">In continual domain adaptation (CDA), the model learns from new, unlabeled data step-by-step, without forgetting what it learned before. Unlike source-free domain adaptation, the source data is available throughout the process.</figcaption>
+                            <br>
+                            When using conventional domain adaptation in a continual domain adaptation (CDA) setting, a significant problem arises: catastrophic forgetting. This means the model loses its ability to perform well on previously learned target domains after it's been adapted to a new one.  As the graph shows, even though the model initially performs well on target A2, its performance drops when it's trained on subsequent target domains.
+
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/Catastrophic_forgetting.png">
+                            </div>
+                            <figcaption style="font-size: 0.8em; text-align: center;">Model's accuracy on the initial target domain as it adapts to a new, unlabeled target domain through various domain adaptation methods</figcaption>
+                        </h3>
+                    </div>
+				</div>
+			</div>
+		</section><!--/.problem-->
+		<!--problem end -->
+		
+        <!--solution start -->
+        <section id="solution" class="about">
+			<div class="container">
+                <div class="section-heading text-center">
+                    <h1><u>Seeing Data Through Past Insights</u></h1>
+                </div>
+				<div class="about-content">
+                    <div class="single-about-txt">
+                        <h3>
+                            There are multiple CDA methods which have been proposed to handle catastrophic forgetting. Typically, most methods include a replay buffer.
+                            This replay buffer stores a small portion of previously seen target data which will be reintroduced during adaptation to prevent catastrophic forgetting.
+                            Here I will introduce my proposed method which can be implemented in 
+                        </h3>
+                    </div>
+				</div>
+			</div>
+		</section><!--/.solution-->
+        <!--solution end -->
+
+		<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+		<script src="assets/js/jquery.js"></script>
+        
+        <!--modernizr.min.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		
+		<!--bootstrap.min.js-->
+        <script src="assets/js/bootstrap.min.js"></script>
+		
+		<!-- bootsnav js -->
+		<script src="assets/js/bootsnav.js"></script>
+		
+		<!-- jquery.sticky.js -->
+		<script src="assets/js/jquery.sticky.js"></script>
+		
+		<!-- for progress bar start-->
+
+		<!-- progressbar js -->
+		<script src="assets/js/progressbar.js"></script>
+
+		<!-- appear js -->
+		<script src="assets/js/jquery.appear.js"></script>
+
+		<!-- for progress bar end -->
+
+		<!--owl.carousel.js-->
+        <script src="assets/js/owl.carousel.min.js"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+		
+        
+        <!--Custom JS-->
+        <script src="assets/js/custom.js"></script>
+        
+    </body>
+	
+</html>
