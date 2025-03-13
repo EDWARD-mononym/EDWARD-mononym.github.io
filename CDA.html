@@ -65,7 +65,8 @@
 			            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
 			                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 			                <li class=" smooth-menu active"></li>
-								<li class="smooth-menu"><a href="#introduction">introduction</a></li>
+                                <li class="smooth-menu"><a href="#introduction">introduction</a></li>
+								<li class="smooth-menu"><a href="#background">background</a></li>
                                 <li class="smooth-menu"><a href="#problem">problem</a></li>
 			                    <li class="smooth-menu"><a href="#solution">solution</a></li>
                                 <li class="smooth-menu"><a href="#results">results</a></li>
@@ -80,8 +81,29 @@
 		</header><!-- /.top-area-->
 		<!-- top-area End -->
 
-        <!--introduction start -->
+        <!--Problem start -->
 		<section id="introduction" class="about">
+			<div class="container">
+                <div class="section-heading text-center">
+                    <h1><u>Neural network has the memory a goldfish (or a highschool fresh grad)</u></h1>
+                </div>
+				<div class="about-content">
+                    <div class="single-about-txt">
+                        <h3>
+                            While forgetting is a familiar human experience, it poses an even greater hurdle for neural networks. Neural networks learn by modifying their internal weights based on training data. Consequently, when a network is trained on a new task, the necessary weight adjustments can disrupt or overwrite the representations crucial for prior tasks, leading to the loss of previously learned information—a phenomenon termed catastrophic forgetting. This article will introduce the concept of continual domain adaptation (CDA), which focuses on updating models with new, unlabeled environments while mitigating this issue. However, before discussing CDA, we'll establish a foundational understanding of the underlying principles.
+                            <br><br>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/forgot_algebra.png" width="300" alt="Resized Image">
+                            </div>
+                        </h3>
+                    </div>
+				</div>
+			</div>
+		</section><!--/.introduction-->
+		<!--introduction end -->
+
+        <!--background start -->
+		<section id="background" class="about">
 			<div class="container">
                 <div class="section-heading text-center">
                     <h1><u>data drift can turns a perfect model into a useless tool</u></h1>
@@ -95,8 +117,8 @@
                             <p>Performance degradation due to domain shift occur due to multiple distinct reasons. Changes in the overall data distribution (marginal distribution), or changes in the relationship between inputs and outputs (conditional distribution). Although these are distinct causes, for simplicity, we will collectively refer to them as domain shift, and the solutions to these problems as domain adaptation.</p>
                             <br>
                             <div style="display: flex; justify-content: center; align-items: center;">
-                                <img src="assets/images/CDA/HU_Summer.jpg" style="max-width: 45%; margin: 50px;">
-                                <img src="assets/images/CDA/HU_Winter.jpg" style="max-width: 45%; margin: 50px;">
+                                <img src="assets/images/CDA/HU_Summer.jpg" style="max-width: 45%; margin: 2%;">
+                                <img src="assets/images/CDA/HU_Winter.jpg" style="max-width: 45%; margin: 2%;">
                             </div>
                             <figcaption style="font-size: 0.8em; text-align: center;">When a model faces a data with differing distribution from the training distribution, its performance degrades</figcaption>
                             <br>
@@ -105,14 +127,14 @@
                     </div>
 				</div>
 			</div>
-		</section><!--/.introduction-->
-		<!--introduction end -->
+		</section><!--/.background-->
+		<!--background end -->
 
         <!--Problem start -->
 		<section id="problem" class="about">
 			<div class="container">
                 <div class="section-heading text-center">
-                    <h1><u>Neural network has the memory a goldfish</u></h1>
+                    <h1><u>endless learning</u></h1>
                 </div>
 				<div class="about-content">
                     <div class="single-about-txt">
