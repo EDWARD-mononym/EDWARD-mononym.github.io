@@ -181,6 +181,18 @@
                             Here \(\mu_\beta\) denotes mean and \(\sigma^2_\beta\) denotes variance of the batch. While effective at increasing convergence speed and stability, much knowledge of the previous domain is lost by re-calculating mean and variance for the batch of each target domain. Unlike conventional batch normalization, continual batch normalization (CBN) normalize the inputs of target domain using the mean and variance of the source domain.
                             
                             \[\hat{x_i} = {x_i - \mu_{source} \over \sqrt{\sigma^2_{source} + \epsilon}}\]
+
+                            A core function of batch normalization is to stabilize the distribution of inputs, thereby stabilizing the training process. Consequently, any modification to batch normalization's implementation raises a critical question: wouldn't such changes compromise training stability? Indeed, alterations are likely to impact stability, a point we will explore further. For now, we propose a potential solution to mitigate stability issues when implementing continual batch normalization (CBN), utilizing conditional feature entropy. Recall that the conditional entropy of an output Y given an input X is defined as:
+
+                            \[H(Y|X)=-\sum p(x,y)\log\frac{p(x,y)}{p(x)} \]
+
+                            In our network, given an input \(x\), we generate a feature \(z\). To minimize the feature entropy of the network, we train the network parameters θ to minimize the entropy:
+                            \[\min_{\theta} H(z|x)\]
+
+                            <strong>Reader Note:</strong>
+                            <p>While minimizing feature entropy enhances stability, it does not directly improve network performance. Therefore, a decay weight is applied to this loss, ensuring that the model only minimizes feature entropy during the initial training phases.</p>
+                            <br>
+
                         </h3>
 
                     </div>
@@ -198,7 +210,14 @@
 				<div class="about-content">
                     <div class="single-about-txt">
                         <h3>
-                            We can visually compare model performance with and without continual batch normalization (CBN) from the plotting below. The graphs show that, for a given replay buffer size, the model using CBN retains more memory than the model without it, demonstrating CBN's effectiveness.
+                            To visualise how well our proposed continual batch normalization (CBN) method works, we compare a network's overall performance with and without our CBN method. To illustrate the benefits of feature entropy minimization, we also included a version of CBN without performing conditional feature entropy minimization at the beginning of training to demonstrate the improvement in stability due to minimizing conditional feature entropy.
+                            <br><br>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="assets/images/CDA/CBN.png">
+                            </div>
+                            <figcaption style="font-size: 0.8em; text-align: center;">Plot showing the performance of a network with various learning methods</figcaption>
+                            <br><br>
+                            Beyond improving overall performance, the model using CBN also utilizes memory more efficiently for a given replay buffer size, highlighting its advantage.
                             <br><br>
                             <div style="display: flex; justify-content: center; align-items: center;">
                                 <img src="assets/images/CDA/Replay_study.png">
@@ -214,7 +233,7 @@
         <!--references start -->
 		<section id="supplementary" class="about">
 			<div class="container">
-                <strong>supplementary materials:</strong>
+                <strong>Supplementary materials:</strong>
                 <p>Please refer to my publication [<a href="https://www.sciencedirect.com/science/article/abs/pii/S0888327025000184">article</a> / <a href="assets/download/CDA/EverAdapt.pdf" download="assets/download/CDA/EverAdapt.pdf">PDF download</a>] for additional details. 
                    For any questions, I can be reached at <a href="mailto:EDWARD.mononym@proton.me">EDWARD.mononym@proton.me</a></p>
                 <br>
